@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 import tinder_api as tinder
 import features as api
 import schedule
 import time 
 import json 
-from random import random
+import random
 from pymongo import MongoClient
 db = MongoClient('mongodb://master:1234@ds129374.mlab.com:29374/kylestinder')
 
@@ -23,8 +23,9 @@ def startAuto():
 	return None
 
 def sendMsg(name, id): 
-	messages = ['Hey, ' + name + 'better Sunday adventure: Bottomless mimosas at Mikes Chicken and Doughnuts, hot pilates, churching it up or being stuck in an elevator with George Clooney?', 'Hey ' + name + ' so let’s just skip to the important stuff. What’s your favorite Spice Girls song', 'I just saw the best upsexy ever', 'I want to paint you green and spank you like a disobedient avocado.', 'Do you peel a banana from the top or bottom?', 'You don’t know how many times I had to swipe left to find you!', 'Do you think love is real?', 'Two truths and a lie; ready. set. go!', 'You can only keep one: Jon Stewart, Stephen Colbert, or John Oliver?']
-	random_message = random.choice(messages)
+	 messages = ["So %s, Better Sunday adventure: Bottomless mimosas at Mikes Chicken and Doughnuts, hot pilates, churching it up or being stuck in an elevator with George Clooney?", "%s, lets just skip to the important stuff. What's your favorite Spice Girls song", "I just saw the best upsexy ever", "I want to paint you green and spank you like a disobedient avocado.", "Do you peel a banana from the top or bottom?", "You don't know how many times I had to swipe left to find you!", "Do you think love is real?", "Two truths and a lie; ready. set. go!", "You can only keep one: Jon Stewart, Stephen Colbert, or John Oliver?"] % (name)
+	 random_message = random.choice(messages)
+	 print(random_message)
 
 
 def job():
@@ -39,7 +40,7 @@ def job():
 			count += 1
 			api.pause()
 	
-	nap_length = 3 * random()
+	nap_length = 3 * random.random()
 	time.sleep(nap_length)
 
 tinder.authverif()

@@ -5,8 +5,10 @@ import schedule
 import time 
 import json 
 import random
+import os
 from pymongo import MongoClient
 db = MongoClient('mongodb://master:1234@ds129374.mlab.com:29374/kylestinder')
+import yagmail
 
 
 
@@ -22,11 +24,27 @@ def startAuto():
 	schedule.every(24).hour.do(job)
 	return None
 
+def notifyKyle(name, msg):
+	yag = yagmail.SMTP(os.environ['gmail'], os.environ['gmail_pass'])
+	contents = ['Kyle, your new tinder match %s has been primed with the message: %s' % (name, msg)]
+	yag.send('kyle.c.r.fahey@gmail.com', 'New Tinder Match Primed!', contents)
+
 def sendMsg(name, id): 
-	 messages = ["So %s, Better Sunday adventure: Bottomless mimosas at Mikes Chicken and Doughnuts, hot pilates, churching it up or being stuck in an elevator with George Clooney?", "%s, lets just skip to the important stuff. What's your favorite Spice Girls song", "I just saw the best upsexy ever", "I want to paint you green and spank you like a disobedient avocado.", "Do you peel a banana from the top or bottom?", "You don't know how many times I had to swipe left to find you!", "Do you think love is real?", "Two truths and a lie; ready. set. go!", "You can only keep one: Jon Stewart, Stephen Colbert, or John Oliver?"] % (name)
+	 messages = [
+    "So %s, Better Sunday adventure: Bottomless mimosas at Mikes Chicken and Doughnuts, hot pilates, churching it up or being stuck in an elevator with George Clooney?" % (name), 
+    "%s, lets just skip to the important stuff. What's your favorite Spice Girls song" % (name), 
+     "I just saw the best upsexy ever", 
+    "I want to paint you green and spank you like a disobedient avocado.", 
+    "Do you peel a banana from the top or bottom?", 
+    "You don't know how many times I had to swipe left to find you!", 
+    "Do you think love is real?", 
+    "Two truths and a lie; ready. set. go!",
+     "You can only keep one: Jon Stewart, Stephen Colbert, or John Oliver?"
+    ]
+
 	 random_message = random.choice(messages)
 	 print(random_message)
-
+	 notifyKyle(name, random_message)
 
 def job():
 	count = 0

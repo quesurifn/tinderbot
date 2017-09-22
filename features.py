@@ -160,6 +160,9 @@ def pause():
     print('Napping for %f seconds...' % nap_length)
     sleep(nap_length)
 
+
+    
+
 if __name__ == '__main__':
     if api.authverif() == True:
         print("Gathering Data on your matches...")

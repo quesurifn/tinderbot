@@ -1,25 +1,23 @@
 import flask_helpers as a
-import cv2
-import numpy as np
+import os
+import schedule
+import time
 
 from pymongo import MongoClient
 db = MongoClient('mongodb://master:1234@ds129374.mlab.com:29374/kylestinder')
 
 import urllib
-import pymongo
-
 from flask_cors import CORS
 
 from flask import Flask, jsonify, request
-app = Flask(__name__)
-CORS(app)
 
-@app.route('/')
-def open():
-    faceCascade = cv2.CascadeClassifier('./helpers/config/classify.xml')
-    image = a.url_to_image('http://facefacts.scot/images/science/Q2_high_health_f.jpg')
-    cv2.imshow("Image", image)
-    cv2.waitKey(0)
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
 
 
 @app.route('/matches')
